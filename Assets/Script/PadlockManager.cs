@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PadlockManager : MonoBehaviour
 {
-    public int[] correctCode = { 1, 1, 1, 1 };
+    public int[] correctCode = { 7, 9, 4, 2 };
 
     // Assign these in Inspector
     public TextMeshProUGUI[] buttonTexts = new TextMeshProUGUI[4];
