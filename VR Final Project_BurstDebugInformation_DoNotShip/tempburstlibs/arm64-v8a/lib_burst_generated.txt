@@ -11,7 +11,6 @@ Library: /Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64
 --float-mode=Fast
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/noahhowell/VR Final Project/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.0.43f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/noahhowell/VR Final Project/Library/Burst
 --output=/Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
@@ -29,7 +28,6 @@ Library: /Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/noahhowell/VR Final Project/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.0.43f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/noahhowell/VR Final Project/Library/Burst
 --output=/Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
@@ -145,7 +143,6 @@ Library: /Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/noahhowell/VR Final Project/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.0.43f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/noahhowell/VR Final Project/Library/Burst
 --output=/Users/noahhowell/VR Final Project/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
