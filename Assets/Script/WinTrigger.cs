@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class WinTrigger : MonoBehaviour
 {
-    public GameObject winScreen; // Assign in Inspector
+    public EscapeRoomTimer timer;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            winScreen.SetActive(true);
+            timer.StopTimer();
         }
     }
 }

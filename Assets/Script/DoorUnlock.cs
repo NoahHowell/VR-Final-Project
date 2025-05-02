@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class DoorUnlock : MonoBehaviour
 {
-    public float openSpeed = 2f;          // Rotation speed
+    public float openSpeed = 2f;
+    public GameObject padlockObject;
+
     private Quaternion targetRotation;
     private bool isOpening = false;
 
     void Start()
     {
-        // Target is y=0, keep current x and z
         Vector3 currentEuler = transform.eulerAngles;
         targetRotation = Quaternion.Euler(currentEuler.x, 0f, currentEuler.z);
     }
@@ -19,7 +20,6 @@ public class DoorUnlock : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
 
-            // Stop once we're close enough
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
             {
                 transform.rotation = targetRotation;
@@ -31,5 +31,10 @@ public class DoorUnlock : MonoBehaviour
     public void Unlock()
     {
         isOpening = true;
+
+        if (padlockObject != null)
+        {
+            Destroy(padlockObject);
+        }
     }
 }

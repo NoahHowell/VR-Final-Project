@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class KeyDoorUnlock : MonoBehaviour
 {
-    public Transform doorTransform;   // The door to rotate
-    public float openSpeed = 2f;      // Rotation speed
+    public Transform doorTransform;
+    public float openSpeed = 2f;
+    public GameObject padlockObject;
+
     private Quaternion targetRotation;
     private bool isOpening = false;
 
     void Start()
     {
-        // Rotate to Y = 180, keep current X and Z
         Vector3 euler = doorTransform.eulerAngles;
         targetRotation = Quaternion.Euler(euler.x, 180f, euler.z);
     }
@@ -33,7 +34,13 @@ public class KeyDoorUnlock : MonoBehaviour
         if (other.CompareTag("Key"))
         {
             isOpening = true;
-            Destroy(other.gameObject); // Remove the key from the scene
+
+            if (padlockObject != null)
+            {
+                Destroy(padlockObject);
+            }
+
+            Destroy(other.gameObject);
         }
     }
 }

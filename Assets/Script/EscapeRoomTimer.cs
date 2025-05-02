@@ -1,51 +1,62 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement; // optional for game over scene
+using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils; // For XROrigin
+using TMPro;
 
 public class EscapeRoomTimer : MonoBehaviour
 {
-    public float timeLimit = 600f; // 10 minutes in seconds
+    [Header("Timer Settings")]
+    public float countdownTime = 600f; // Time in seconds (e.g. 60 = 1 min)
+
+    [Header("XR Player Rig")]
+    public XROrigin xrOrigin; // Assign XR Origin here
+
+    [Header("Teleport Target")]
+    public Transform loseTeleportPoint; // Where to send the player on timeout
+
+    [Header("UI Clock")]
+    public TextMeshProUGUI clockText; // Reference to wall-mounted digital clock
+
     private float remainingTime;
-
-    public TextMeshProUGUI timerText; // Assign in Inspector
-    public GameObject loseScreen;     // Optional: assign a UI panel to show on failure
-
-    private bool gameOver = false;
+    private bool isTimerRunning = true;
 
     void Start()
     {
-        remainingTime = timeLimit;
+        remainingTime = countdownTime;
     }
 
     void Update()
     {
-        if (gameOver) return;
+        if (!isTimerRunning) return;
 
         remainingTime -= Time.deltaTime;
-        remainingTime = Mathf.Max(remainingTime, 0f); // Clamp to 0
+        remainingTime = Mathf.Max(0f, remainingTime);
 
-        // Update UI
-        int minutes = Mathf.FloorToInt(remainingTime / 60f);
-        int seconds = Mathf.FloorToInt(remainingTime % 60f);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // Update the on-wall clock text
+        if (clockText != null)
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / 60f);
+            int seconds = Mathf.FloorToInt(remainingTime % 60f);
+            clockText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
 
         if (remainingTime <= 0f)
         {
-            TriggerLoss();
+            TeleportToLoseRoom();
         }
     }
 
-    void TriggerLoss()
+    void TeleportToLoseRoom()
     {
-        gameOver = true;
+        if (xrOrigin != null && loseTeleportPoint != null)
+        {
+            xrOrigin.MoveCameraToWorldLocation(loseTeleportPoint.position);
+        }
+        isTimerRunning = false;
+    }
 
-        // Show lose screen if assigned
-        if (loseScreen != null)
-            loseScreen.SetActive(true);
-
-        // Optional: lock doors, stop input, fade out, etc.
-
-        // Or: Load a "Game Over" scene
-        // SceneManager.LoadScene("GameOverScene");
+    public void StopTimer()
+    {
+        isTimerRunning = false;
     }
 }

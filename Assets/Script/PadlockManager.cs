@@ -5,9 +5,10 @@ public class PadlockManager : MonoBehaviour
 {
     public int[] correctCode = { 7, 9, 4, 2 };
 
-    // Assign these in Inspector
     public TextMeshProUGUI[] buttonTexts = new TextMeshProUGUI[4];
     public GameObject doorToOpen;
+    public GameObject padlockObject;
+    public GameObject popupText; // Assign the popup canvas in Inspector
 
     public void CheckCodeFromText()
     {
@@ -19,8 +20,6 @@ public class PadlockManager : MonoBehaviour
 
         string correctCodeStr = string.Join("", correctCode);
 
-        Debug.Log($"Entered: {enteredCode} | Expected: {correctCodeStr}");
-
         if (enteredCode == correctCodeStr)
         {
             OpenDoor();
@@ -29,12 +28,29 @@ public class PadlockManager : MonoBehaviour
 
     private void OpenDoor()
     {
+        if (doorToOpen != null)
+        {
+            Vector3 euler = doorToOpen.transform.eulerAngles;
+            doorToOpen.transform.eulerAngles = new Vector3(euler.x, 90f, euler.z);
+        }
 
-    if (doorToOpen != null)
-    {
-        Vector3 euler = doorToOpen.transform.eulerAngles;
-        doorToOpen.transform.eulerAngles = new Vector3(euler.x, 90f, euler.z);
+        if (padlockObject != null)
+        {
+            Destroy(padlockObject);
+        }
+
+        if (popupText != null)
+        {
+            popupText.SetActive(true);
+            Invoke(nameof(HidePopup), 3f); // Hide after 3 seconds
+        }
     }
-}
 
+    private void HidePopup()
+    {
+        if (popupText != null)
+        {
+            popupText.SetActive(false);
+        }
+    }
 }
